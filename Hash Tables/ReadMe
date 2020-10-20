@@ -1,0 +1,22 @@
+Folder Structure
+----------------
+Submitted Zip file contains 5 files
+	1.	Hashtable.java 
+		Source code for all three hash table types: Multi hash table, Cuckoo hash table and DLeft hash table.
+		This file contains 4 major functions.
+		a.	Main() - Main program function which sets the input parameters and calls the other member functions
+		b.	computeMultiHashTable() - This function computes and Multi Hash Table and prints the output
+		c.	computeCuckooHashTable() - This function computes and Cuckoo Hash Table and prints the output
+		d.	computeDLeftHashTable() - This function computes and D Left Hash Table and prints the output
+								
+		Note : To run one particular hash table, comment the function calls to other two hash tables
+								
+	2.	Output_Multi_Hash_Table.txt	-	Output file containing the Demo results of Multi hash table. 
+	
+	3.	Output_Cuckoo_Hash_Table.txt-	Output file containing the Demo results of Cuckoo hash table
+	
+	4.	Output_DLeft_Hash_Table.txt	-	Output file containing the Demo results of D Left hash table
+									
+		Note : First line in output file contains the number of flows in the hash table and is followed by the flow Ids in the subsequent lines. Entries in hash table where flow Ids are not present is represented by 0.
+	
+	5. ReadMe.txt
