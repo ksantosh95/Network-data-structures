@@ -11,16 +11,16 @@ public class CounterSketch {
 			
 			String strFlow = (String)p.getKey();
 			String strFlowSize = (String)p.getValue();
-			strFlow = strFlow.replace(".", "");
-			long flow = Long.parseLong(strFlow);
+			int flow = strFlow.hashCode();
 			int size = Integer.parseInt(strFlowSize);
 			int sign = 0;
 			int index = 0;
 			
 			for(int i=0;i < s.length; i++)
 			{
-				index = (int)((flow ^ s[i]) % w);
-				sign = (index << 0) & 1;
+				sign = flow < 0 ? 0 : 1;
+				index = (int)Math.abs((flow ^ s[i]) % w);
+				
 				
 				m[i][index] += ((sign == 1)? size : -(size));
 				//System.out.println(flow + " " + sign + " " + size);
@@ -32,8 +32,7 @@ public class CounterSketch {
 	public static <K, V> int lookupCounterSketch(Pair<K, V> p, int w, int[][] m, int[] s) {
 		String strFlow = (String)p.getKey();
 		String strFlowSize = (String)p.getValue();
-		strFlow = strFlow.replace(".", "");
-		long flow = Long.parseLong(strFlow);
+		int flow = strFlow.hashCode();
 		int size = Integer.parseInt(strFlowSize);
 		int index = 0;
 		int sign = 0;
@@ -41,8 +40,8 @@ public class CounterSketch {
 		int[] median = new int[s.length];
 		for(int i=0;i < s.length; i++)
 		{
-			index = (int)((flow ^ s[i]) % w);
-			sign = (index << 0) & 1;
+			sign = flow < 0 ? 0 : 1;
+			index = (int)Math.abs((flow ^ s[i]) % w);
 			median[i] = ((sign == 1)? m[i][index] : -(m[i][index]));
 			if(flow == a)
 			{

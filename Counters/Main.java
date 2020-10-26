@@ -6,6 +6,7 @@ import static PkgCountMin.CounterSketch.computeCounterSketch;
 import static PkgCountMin.CounterSketch.lookupCounterSketch;
 import static PkgCountMin.ActiveCounter.binaryAdd;
 import static PkgCountMin.ActiveCounter.binaryToDecimal;
+import static PkgCountMin.ActiveCounter.expntToDecimal;
 
 import java.io.*;
 import java.util.*; 
@@ -70,8 +71,8 @@ public class Main {
 			i++;
 		}
 		
-		runCountMin(k,w,inputArray,num_of_flows);
-		runCounterSketch(k,w,inputArray,num_of_flows);
+		//runCountMin(k,w,inputArray,num_of_flows);
+		//runCounterSketch(k,w,inputArray,num_of_flows);
 		runActiveCounter(1000000);
 		
 		
@@ -117,7 +118,7 @@ public class Main {
 		for(Pair p : inputArray)
 		{
 			count = lookupCounterSketch(p , w, m, s);
-			error += (count - Integer.parseInt((String)p.getValue())  );	
+			error += Math.abs(count - Integer.parseInt((String)p.getValue())  );	
 			ar.add(new FlowCounter(count, (String)p.getKey(), Integer.parseInt((String)p.getValue())));		
 		}
 		System.out.println("*****Counter Sketch Result*****");
@@ -137,15 +138,18 @@ public class Main {
 	
 		int currentbit = 16;
 		int expnt_bits = 16;
-
+		int expnt_result = 0;
+		int prob = 1;
 		for(int i=0;i < num;i++)
 		{
-			int chance = r.nextInt(2);
-			if(chance == 1)
+			int chance = r.nextInt(prob) ;
+			if(chance==0)
 				counterArray = binaryAdd(counterArray,currentbit, lastcounterindex, expnt_bits);
-
+				expnt_result = (int) expntToDecimal(counterArray,expnt_bits);
+				prob =  (int) Math.ceil(Math.pow(2, expnt_result));
 		}
-
+		
+		
 		
 		long result = binaryToDecimal(counterArray,expnt_bits);
 		System.out.println("*****Active Counter Result*****");

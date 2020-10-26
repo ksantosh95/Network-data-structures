@@ -57,4 +57,20 @@ public class ActiveCounter {
 		//for(int i = expbits; i )
 	}
 	
+	public static long expntToDecimal(int[] counterArray, int expbits)
+	{
+		char[] exp = new char[expbits];
+		char[] number = new char[expbits];
+		for(int i=expbits-1;i>=0;i--)
+		{
+			exp[expbits - i - 1] = counterArray[i]==1? '1' : '0';
+		}
+//		System.out.println(new String(exp));
+		
+		
+		return (long) (( Integer.parseInt(new String(exp),2)));
+		//for(int i = expbits; i )
+	}
+	
+	
 }
