@@ -12,15 +12,17 @@ public class CounterSketch {
 			String strFlow = (String)p.getKey();
 			String strFlowSize = (String)p.getValue();
 			int flow = strFlow.hashCode();
+			
 			int size = Integer.parseInt(strFlowSize);
 			int sign = 0;
 			int index = 0;
 			
 			for(int i=0;i < s.length; i++)
 			{
-				sign = flow < 0 ? 0 : 1;
-				index = (int)Math.abs((flow ^ s[i]) % w);
+				sign = (flow >> 31) & 1;
 				
+				index = (int)Math.abs((flow ^ s[i]) % w);
+			
 				
 				m[i][index] += ((sign == 1)? size : -(size));
 				//System.out.println(flow + " " + sign + " " + size);
@@ -40,7 +42,7 @@ public class CounterSketch {
 		int[] median = new int[s.length];
 		for(int i=0;i < s.length; i++)
 		{
-			sign = flow < 0 ? 0 : 1;
+			sign = (flow >> 31) & 1;
 			index = (int)Math.abs((flow ^ s[i]) % w);
 			median[i] = ((sign == 1)? m[i][index] : -(m[i][index]));
 			if(flow == a)
